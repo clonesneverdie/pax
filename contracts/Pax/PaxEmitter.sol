@@ -74,7 +74,7 @@ contract PaxEmitter is Ownable, IPaxEmitter {
     function add(address to, uint256 allocPoint) external onlyOwner {
         massUpdatePools();
         totalAllocPoint = totalAllocPoint.add(allocPoint);
-        poolInfo.push(PoolInfo({to: to, allocPoint: allocPoint, lastEmitBlock: started ? block.number : uint256(0)}));
+        poolInfo.push(PoolInfo({to: to, allocPoint: allocPoint, lastEmitBlock: started ? block.number : uint256(int256(-1))}));
         emit Add(to, allocPoint);
     }
 
