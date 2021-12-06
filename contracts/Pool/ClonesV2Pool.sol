@@ -5,12 +5,14 @@ pragma solidity ^0.8.10;
 import "../openzeppelin/contracts/utils/Context.sol";
 import "../openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
 import "../openzeppelin/contracts/utils/math/SafeMath.sol";
+import "../openzeppelin/contracts/utils/math/SignedSafeMath.sol";
 import "../interfaces/IERC721Dividend.sol";
 import "../interfaces/IPaxEmitter.sol";
 import "../interfaces/IPax.sol";
 
 contract ClonesV2Pool is Context, IERC721Dividend {
 	using SafeMath for uint256;
+  using SignedSafeMath for int256;
 
 	IPaxEmitter public paxEmitter;
 	IPax public pax;
