@@ -10,7 +10,7 @@ import "../interfaces/IPaxEmitter.sol";
 import "../interfaces/IPax.sol";
 import "../interfaces/IERC20StakingPool.sol";
 
-contract KIP7StakingPool is Context, IERC20StakingPool {
+contract ERC20StakingPool is Context, IERC20StakingPool {
 	using SafeMath for uint256;
   using SignedSafeMath for int256;
 
