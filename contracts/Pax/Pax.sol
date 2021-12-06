@@ -20,7 +20,7 @@ contract Pax is Context, ERC20, ERC20Burnable, ERC20Snapshot, Ownable {
 	address public buyback;
 
 	modifier onlyEmitter() {
-		require(msg.sender == emitter);
+		require(_msgSender() == emitter);
 		_;
 	}
 
