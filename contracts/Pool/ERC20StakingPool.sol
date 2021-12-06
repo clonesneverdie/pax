@@ -2,6 +2,7 @@
 
 pragma solidity ^0.8.10;
 
+import "../openzeppelin/contracts/utils/Context.sol";
 import "../openzeppelin/contracts/utils/math/SafeMath.sol";
 import "../openzeppelin/contracts/utils/math/SignedSafeMath.sol";
 import "../openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -9,7 +10,7 @@ import "../interfaces/IPaxEmitter.sol";
 import "../interfaces/IPax.sol";
 import "../interfaces/IERC20StakingPool.sol";
 
-contract KIP7StakingPool is IERC20StakingPool {
+contract KIP7StakingPool is Context, IERC20StakingPool {
 	using SafeMath for uint256;
   using SignedSafeMath for int256;
 
@@ -45,7 +46,7 @@ contract KIP7StakingPool is IERC20StakingPool {
 			uint256 value = balance.sub(currentBalance);
 			if (value > 0) {
 				pointsPerShare = pointsPerShare.add(value.mul(pointsMultiplier).div(totalShares));
-				emit Distribute(msg.sender, value);
+				emit Distribute(_msgSender(), value);
 			}
 			currentBalance = balance;
 		} else {
@@ -87,11 +88,11 @@ contract KIP7StakingPool is IERC20StakingPool {
 
 	function claim() external {
 		updateBalance();
-		uint256 claimable = _claimableOf(msg.sender);
+		uint256 claimable = _claimableOf(_msgSender());
 		if (claimable > 0) {
-			claimed[msg.sender] = claimed[msg.sender].add(claimable);
-			emit Claim(msg.sender, claimable);
-			pax.transfer(msg.sender, claimable);
+			claimed[_msgSender()] = claimed[_msgSender()].add(claimable);
+			emit Claim(_msgSender(), claimable);
+			pax.transfer(_msgSender(), claimable);
 			currentBalance = currentBalance.sub(claimable);
 		}
 	}
@@ -99,26 +100,26 @@ contract KIP7StakingPool is IERC20StakingPool {
 	function _addShare(uint256 share) internal {
 		updateBalance();
 		totalShares = totalShares.add(share);
-		shares[msg.sender] = shares[msg.sender].add(share);
-		pointsCorrection[msg.sender] = pointsCorrection[msg.sender].sub(int256(pointsPerShare.mul(share)));
+		shares[_msgSender()] = shares[_msgSender()].add(share);
+		pointsCorrection[_msgSender()] = pointsCorrection[_msgSender()].sub(int256(pointsPerShare.mul(share)));
 	}
 
 	function _subShare(uint256 share) internal {
 		updateBalance();
 		totalShares = totalShares.sub(share);
-		shares[msg.sender] = shares[msg.sender].sub(share);
-		pointsCorrection[msg.sender] = pointsCorrection[msg.sender].add(int256(pointsPerShare.mul(share)));
+		shares[_msgSender()] = shares[_msgSender()].sub(share);
+		pointsCorrection[_msgSender()] = pointsCorrection[_msgSender()].add(int256(pointsPerShare.mul(share)));
 	}
 
 	function stake(uint256 amount) external {
 		_addShare(amount);
-		token.transferFrom(msg.sender, address(this), amount);
-		emit Stake(msg.sender, amount);
+		token.transferFrom(_msgSender(), address(this), amount);
+		emit Stake(_msgSender(), amount);
 	}
 
 	function unstake(uint256 amount) external {
 		_subShare(amount);
-		token.transfer(msg.sender, amount);
-		emit Unstake(msg.sender, amount);
+		token.transfer(_msgSender(), amount);
+		emit Unstake(_msgSender(), amount);
 	}
 }
