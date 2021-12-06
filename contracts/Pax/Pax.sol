@@ -28,7 +28,7 @@ contract Pax is Context, ERC20, ERC20Burnable, ERC20Snapshot, Ownable {
 		_snapshot();
 	}
 
-	function mint(address to, uint256 amount) public onlyOwner {
+	function mint(address to, uint256 amount) public onlyEmitter {
 		_mint(to, amount);
 	}
 
