@@ -2,13 +2,14 @@
 
 pragma solidity ^0.8.10;
 
+import "../openzeppelin/contracts/utils/Context.sol";
 import "../openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
 import "../openzeppelin/contracts/utils/math/SafeMath.sol";
 import "../interfaces/IERC721Dividend.sol";
 import "../interfaces/IPaxEmitter.sol";
 import "../interfaces/IPax.sol";
 
-contract MatesPool is IERC721Dividend {
+contract ClonesV2Pool is Context, IERC721Dividend {
 	using SafeMath for uint256;
 
 	IPaxEmitter public paxEmitter;
@@ -43,7 +44,7 @@ contract MatesPool is IERC721Dividend {
 			uint256 value = balance.sub(currentBalance);
 			if (value > 0) {
 				pointsPerShare = pointsPerShare.add(value.mul(pointsMultiplier).div(maxNFTSupply));
-				emit Distribute(msg.sender, value);
+				emit Distribute(_msgSender(), value);
 			}
 			currentBalance = balance;
 		}
@@ -84,7 +85,7 @@ contract MatesPool is IERC721Dividend {
 		uint256 length = ids.length;
 		for (uint256 i = 0; i < length; i = i + 1) {
 			uint256 id = ids[i];
-			require(id < maxNFTSupply && nft.ownerOf(id) == msg.sender);
+			require(id < maxNFTSupply && nft.ownerOf(id) == _msgSender());
 			uint256 claimable = _claimableOf(id);
 			if (claimable > 0) {
 				claimed[id] = claimed[id].add(claimable);
@@ -92,8 +93,8 @@ contract MatesPool is IERC721Dividend {
 				totalClaimable = totalClaimable.add(claimable);
 			}
 		}
-		pax.burnFrom(msg.sender, totalClaimable.div(10));
-		pax.transfer(msg.sender, totalClaimable);
+		pax.burnFrom(_msgSender(), totalClaimable.div(10));
+		pax.transfer(_msgSender(), totalClaimable);
 		currentBalance = currentBalance.sub(totalClaimable);
 	}
 }
