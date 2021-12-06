@@ -13,7 +13,6 @@ contract KIP7StakingPool is IERC20StakingPool {
 	using SafeMath for uint256;
   using SignedSafeMath for int256;
 
-
 	IPaxEmitter public paxEmitter;
 	IPax public pax;
 	uint256 public pid;
