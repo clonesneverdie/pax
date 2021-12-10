@@ -13,10 +13,10 @@ import "../interfaces/IPax.sol";
 contract Pax is Context, ERC20, ERC20Burnable, ERC20Snapshot, Ownable {
 	using SafeMath for uint256;
 
-	constructor() ERC20("Pax", "PAX") {}
+	constructor() ERC20("CND Pax", "PAX") {}
 
 	address public emitter;
-	address public booth;
+	address public whitehole;
 	address public buyback;
 
 	modifier onlyEmitter() {
@@ -36,8 +36,8 @@ contract Pax is Context, ERC20, ERC20Burnable, ERC20Snapshot, Ownable {
 		emitter = _emitter;
 	}
 
-	function setBooth(address _booth) external onlyOwner {
-		booth = _booth;
+	function setWhitehole(address _whitehole) external onlyOwner {
+		whitehole = _whitehole;
 	}
 
   function setBuybackFund(address _buyback) external onlyOwner {
@@ -46,14 +46,14 @@ contract Pax is Context, ERC20, ERC20Burnable, ERC20Snapshot, Ownable {
 
 	function burn(uint256 amount) public override {
 		uint256 toFund = amount.mul(5).div(1000);
-		transfer(booth, toFund);
+		transfer(whitehole, toFund);
 		transfer(buyback, toFund);
 		_burn(_msgSender(), amount - toFund.mul(2));
 	}
 
 	function burnFrom(address account, uint256 amount) public override {
 		uint256 toFund = amount.mul(5).div(1000);
-		transferFrom(account, booth, toFund);
+		transferFrom(account, whitehole, toFund);
 		transferFrom(account, buyback, toFund);
 		_burn(account, amount - toFund.mul(2));
 	}
