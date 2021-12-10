@@ -13,7 +13,9 @@ import "../interfaces/IPax.sol";
 contract Pax is Context, ERC20, ERC20Burnable, ERC20Snapshot, Ownable {
 	using SafeMath for uint256;
 
-	constructor() ERC20("CND Pax", "PAX") {}
+	constructor() ERC20("CND Pax", "PAX") {
+		_mint(_msgSender(), 30000000 * 1e18);
+	}
 
 	address public emitter;
 	address public whitehole;
