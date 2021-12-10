@@ -5,10 +5,10 @@ pragma solidity ^0.8.10;
 import "../openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "../openzeppelin/contracts/utils/Context.sol";
 import "../openzeppelin/contracts/utils/math/SafeMath.sol";
-import "../interfaces/IBooth.sol";
+import "../interfaces/IWhitehole.sol";
 import "../interfaces/IPax.sol";
 
-contract Booth is Context, ERC20, IBooth {
+contract Whitehole is Context, ERC20, IWhitehole {
 	using SafeMath for uint256;
 
 	IPax public pax;
