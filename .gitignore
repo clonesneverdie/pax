@@ -5,6 +5,7 @@ coverage.json
 typechain
 abi
 flat
+package-lock.json
 
 #Hardhat files
 cache
