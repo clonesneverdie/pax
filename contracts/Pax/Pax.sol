@@ -14,12 +14,13 @@ contract Pax is Context, ERC20, ERC20Burnable, ERC20Snapshot, Ownable {
 	using SafeMath for uint256;
 
 	constructor() ERC20("CND Pax", "PAX") {
-		_mint(_msgSender(), 30000000 * 1e18);
+		_mint(_msgSender(), INITIAL_SUPPLY);
 	}
 
 	address public emitter;
 	address public whitehole;
 	address public buyback;
+	uint256 public INITIAL_SUPPLY = 23773339822368706954660494;
 
 	modifier onlyEmitter() {
 		require(_msgSender() == emitter);
@@ -42,7 +43,7 @@ contract Pax is Context, ERC20, ERC20Burnable, ERC20Snapshot, Ownable {
 		whitehole = _whitehole;
 	}
 
-  function setBuybackFund(address _buyback) external onlyOwner {
+	function setBuybackFund(address _buyback) external onlyOwner {
 		buyback = _buyback;
 	}
 
