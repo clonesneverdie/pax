@@ -1,17 +1,17 @@
-const hre = require("hardhat");
+const hre = require('hardhat')
 
 async function main() {
-  const Pax = await hre.ethers.getContractFactory("Pax");
-  const pax = await Pax.deploy();
+	const Pax = await hre.ethers.getContractFactory('Pax')
+	const pax = await Pax.deploy()
 
-  await pax.deployed();
+	await pax.deployed()
 
-  console.log("Pax deployed to:", pax.address);
+	console.log('Pax deployed to:', pax.address)
 }
 
 main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+	.then(() => process.exit(0))
+	.catch((error) => {
+		console.error(error)
+		process.exit(1)
+	})
