@@ -5,11 +5,11 @@ const emissionPerBlock = '4000000000000000000'
 
 async function main() {
   const PaxEmitter = await hre.ethers.getContractFactory("PaxEmitter");
-  const paxEmitter = await PaxEmitter.deploy();
+  const paxEmitter = await PaxEmitter.deploy(PAX, emissionPerBlock);
 
   await paxEmitter.deployed();
 
-  console.log("Pax deployed to:", paxEmitter.address);
+  console.log("PaxEmitter deployed to:", paxEmitter.address);
 }
 
 main()
