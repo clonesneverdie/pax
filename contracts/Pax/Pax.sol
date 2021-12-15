@@ -20,7 +20,7 @@ contract Pax is Context, ERC20, ERC20Burnable, ERC20Snapshot, Ownable {
 	address public emitter;
 	address public whitehole;
 	address public buyback;
-	uint256 public INITIAL_SUPPLY = 23773339822368706954660494;
+	uint256 public INITIAL_SUPPLY = 25121339822368706954660494;
 
 	modifier onlyEmitter() {
 		require(_msgSender() == emitter);
