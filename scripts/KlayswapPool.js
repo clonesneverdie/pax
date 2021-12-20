@@ -1,7 +1,7 @@
 const hre = require('hardhat')
 
 const PAXEmitter = '0x97C2315DE88107DBACb0E911046F15f3bEC94360'
-const pid = '4'
+const pid = '3'
 const to = '0x77Ef0B244d6c018718bA8902b3d2B0c4144ceAd9'
 
 async function main() {

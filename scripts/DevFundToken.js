@@ -2,7 +2,7 @@ const hre = require('hardhat')
 
 async function main() {
 	const DevFundToken = await hre.ethers.getContractFactory('DevFundToken')
-	const devFundToken = await DevFundToken.deploy(PAXEmitter, pid)
+	const devFundToken = await DevFundToken.deploy()
 
 	await devFundToken.deployed()
 
