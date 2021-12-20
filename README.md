@@ -22,7 +22,11 @@
 
 - Klayswap pool: [0xd6cE94caE043Be86B1E390eA7CC8FddbA4bE0210](https://polygonscan.com/address/0xd6cE94caE043Be86B1E390eA7CC8FddbA4bE0210)
 
-- Quickswap pool: 
+- Quickswap pool: [0xAAd94479D53C31Fcb0C8C6Da1d83c124bd271f96](https://polygonscan.com/address/0xAAd94479D53C31Fcb0C8C6Da1d83c124bd271f96)
+
+- Quickswap LP Token: [0xf7463107b942a73bb002d42e50e549810479a662](https://polygonscan.com/address/0xf7463107b942a73bb002d42e50e549810479a662)
+
+
 
 ## License
 [MIT](LICENSE)
